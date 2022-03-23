@@ -144,6 +144,6 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
-dataset/*
+dataset
 .DS_Store
 .idea/
