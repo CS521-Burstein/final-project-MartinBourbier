@@ -1,2 +1,7 @@
-kaggle #dataset download API
-
+kaggle
+tensorflow
+sklearn
+pandas
+numpy
+matplotlib
+scipy
