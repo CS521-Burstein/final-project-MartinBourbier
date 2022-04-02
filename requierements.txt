@@ -1,7 +1,2 @@
-kaggle
-tensorflow
-sklearn
-pandas
-numpy
-matplotlib
-scipy
+kaggle # Downloading the dataset
+pandas # DataFrames
