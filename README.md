@@ -1,8 +1,7 @@
-# Dog breed classification system
+# Credit Card Approval Prediction
 
 CS521 final project. Collaborators: Martin Bourbier, Jenny Hopkins, and Aigerim Dussikenova
 
-Dataset link: `https://www.kaggle.com/c/dog-breed-identification/data`
-We chose this dataset because of its comprehensiveness (over 20,000 images of 120 dog breeds). 
+Dataset link: `https://www.kaggle.com/datasets/rikdifos/credit-card-approval-prediction`
 
-User passes in an image of a dog to the program and the program compares the image to the dataset and tells the user what breed of dog it is.
+Based on personal information, the system predicts whether an individual would be approved for a credit card or not.
