@@ -3,8 +3,7 @@
 import pandas as pd
 YEAR = 365.2425
 
-data_folder = "."
-#data_folder = "./dataset"
+data_folder = "./dataset"
 
 application_record = pd.read_csv(f"{data_folder}/application_record.csv",index_col="ID")
 credit_record = pd.read_csv(f"{data_folder}/credit_record.csv", index_col="ID")
@@ -21,14 +20,20 @@ application_record.drop(columns="DAYS_EMPLOYED", axis=1, inplace=True)
 
 print(application_record.columns)
 
-df=pd.merge(application_record, credit_record, on='ID', how='left')
-df=df.drop_duplicates()
-
-
 # Replace X and C characters with -1
-df.STATUS = df.apply(lambda x: -1 if x.STATUS=='C' or x.STATUS == 'X' or pd.isna(x.STATUS) else x.STATUS, axis=1)
+credit_record.replace('X', -1, inplace=True)
+credit_record.replace('C', -1, inplace=True)
+
 # Change data type of STATUS column from string to integer
-df.STATUS = df.STATUS.astype('int')
+credit_record['STATUS'] = credit_record['STATUS'].astype(int)
+
+# Normalize value to be = 1 if STATUS >= 1
+credit_record.loc[credit_record['STATUS'] >= 1, 'STATUS'] = 1
+
+# Keep only the highest value when ID's have duplicates
+df = pd.DataFrame(credit_record.groupby(['ID'])['STATUS'].agg(max)).reset_index()
+
+concat = pd.merge(application_record, df, on=['ID'])
 
 # Write merge result to the file
-df.to_csv('concatenated.csv')
+concat.to_csv(f'{data_folder}/concatenated.csv')
