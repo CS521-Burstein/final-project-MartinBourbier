@@ -33,7 +33,11 @@ credit_record.loc[credit_record['STATUS'] >= 1, 'STATUS'] = 1
 # Keep only the highest value when ID's have duplicates
 df = pd.DataFrame(credit_record.groupby(['ID'])['STATUS'].agg(max)).reset_index()
 
-concat = pd.merge(application_record, df, on=['ID'])
+concat_1 = pd.merge(application_record, df, on=['ID'])
+# Extract how many months account has been open for
+start_df=pd.DataFrame(credit_record.groupby(['ID'])['MONTHS_BALANCE'].agg(min)).reset_index()
+start_df['MONTHS_BALANCE']=-start_df['MONTHS_BALANCE']
+concat = pd.merge(concat_1, start_df, on=['ID'])
 
 concat['OCCUPATION_TYPE'].replace(np.nan, 'Other', inplace=True)
 concat['FLAG_OWN_CAR'].replace(['Y', 'N'], [1, 0], inplace=True)
