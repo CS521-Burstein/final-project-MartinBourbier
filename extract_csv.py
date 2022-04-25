@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-
+import numpy as np
 import pandas as pd
 YEAR = 365.2425
 
@@ -34,6 +34,18 @@ credit_record.loc[credit_record['STATUS'] >= 1, 'STATUS'] = 1
 df = pd.DataFrame(credit_record.groupby(['ID'])['STATUS'].agg(max)).reset_index()
 
 concat = pd.merge(application_record, df, on=['ID'])
+
+concat['OCCUPATION_TYPE'].replace(np.nan, 'Other', inplace=True)
+concat['FLAG_OWN_CAR'].replace(['Y', 'N'], [1, 0], inplace=True)
+concat['CODE_GENDER'].replace(['M', 'F'], [1, 0], inplace=True)
+concat['FLAG_OWN_REALTY'].replace(['Y', 'N'], [1, 0], inplace=True)
+concat['NAME_INCOME_TYPE'] = concat.NAME_INCOME_TYPE.astype('category').cat.codes
+concat['NAME_EDUCATION_TYPE'] = concat.NAME_EDUCATION_TYPE.astype('category').cat.codes
+concat['NAME_FAMILY_STATUS'] = concat.NAME_FAMILY_STATUS.astype('category').cat.codes
+concat['NAME_HOUSING_TYPE'] = concat.NAME_HOUSING_TYPE.astype('category').cat.codes
+concat['OCCUPATION_TYPE'] = concat.OCCUPATION_TYPE.astype('category').cat.codes
+
+concat.CNT_FAM_MEMBERS = concat.CNT_FAM_MEMBERS.astype(int)
 
 # Write merge result to the file
 concat.to_csv(f'{data_folder}/concatenated.csv')
