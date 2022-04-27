@@ -15,7 +15,7 @@ for label in data.columns.values:
     if data[label].dtype == 'object':
         data[label] = le.fit_transform(data[label])
 
-MODEL = "LOGREG"
+MODEL = "DTC"
 
 if MODEL == "LOGREG":
     X = data.drop(['STATUS'], axis=1).drop(['ID'], axis=1)
