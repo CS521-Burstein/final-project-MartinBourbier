@@ -18,6 +18,13 @@ application_record['YEARS_EMPLOYED'] = -application_record['DAYS_EMPLOYED'] / YE
 application_record.loc[application_record['YEARS_EMPLOYED'] <= 0, 'YEARS_EMPLOYED'] = 0
 application_record.drop(columns="DAYS_EMPLOYED", axis=1, inplace=True)
 
+
+#DROPPING CNT_CHILDERN COLUMN
+application_record.drop(columns='CNT_CHILDREN',axis=1,inplace=True)
+
+#DROP USERS WHO HAVE MORE THAN 10 FAMILY MEMBERS
+
+application_record.drop(application_record[application_record['CNT_FAM_MEMBERS']>10].index, inplace=True)
 # drop flag_mobile since it is always true
 application_record.drop('FLAG_MOBIL', axis=1, inplace=True)
 
@@ -32,6 +39,8 @@ credit_record['STATUS'] = credit_record['STATUS'].astype(int)
 
 # Normalize value to be = 1 if STATUS >= 1
 credit_record.loc[credit_record['STATUS'] >= 1, 'STATUS'] = 1
+#change status=-1 to status=0
+credit_record.loc[credit_record['STATUS']<=-1,'STATUS']=0
 
 # Keep only the highest value when ID's have duplicates
 df = pd.DataFrame(credit_record.groupby(['ID'])['STATUS'].agg(max)).reset_index()
