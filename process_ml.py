@@ -31,6 +31,7 @@ if MODEL == "LOGREG":
     LogReg = LogisticRegression(max_iter=100)
     LogReg.fit(X_train_rescaled, y_train)
 
+    print("Logistic Regression model")
     print("Accuracy before optimizations:", LogReg.score(X_test_rescaled, y_test))
 
     tolerance = [0.01, 0.001, 0.0001]
@@ -61,5 +62,6 @@ elif MODEL == "DTC":
     DT.fit(X_train, y_train)
     
     y_pred = DT.predict(X_test)
-    
+
+    print("Decision Tree Classifier model")
     print("Accuracy:", accuracy_score(y_test, y_pred))
