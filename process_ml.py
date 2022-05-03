@@ -5,6 +5,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn .metrics import accuracy_score
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.preprocessing import LabelEncoder, MinMaxScaler
+from sklearn.ensemble import RandomForestClassifier
 import pandas as pd
 
 data = pd.read_csv('./dataset/concatenated.csv')
@@ -15,7 +16,7 @@ for label in data.columns.values:
     if data[label].dtype == 'object':
         data[label] = le.fit_transform(data[label])
 
-MODEL = "DTC"
+MODEL = "RFTC"
 
 if MODEL == "LOGREG":
     X = data.drop(['STATUS'], axis=1).drop(['ID'], axis=1)
@@ -65,3 +66,24 @@ elif MODEL == "DTC":
 
     print("Decision Tree Classifier model")
     print("Accuracy:", accuracy_score(y_test, y_pred))
+
+elif MODEL == "RFTC":
+    X = data.drop(['STATUS'], axis=1).drop(['ID'], axis=1)
+    y = data['STATUS']
+
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5, random_state=42)
+
+    # scaler = MinMaxScaler(feature_range=(0, 1))
+    # X_train_rescaled = scaler.fit_transform(X_train)
+    # X_test_rescaled = scaler.transform(X_test)
+    RF = RandomForestClassifier()
+
+    # RF.fit(X_train_rescaled, y_train)
+
+    # y_pred = RF.predict(X_test_rescaled)
+    RF.fit(X_train, y_train)
+
+    y_pred = RF.predict(X_test)
+
+    print("Random Forest Classifier")
+    print("Accuracy:", round(accuracy_score(y_test, y_pred), 2))
