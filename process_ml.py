@@ -18,12 +18,13 @@ for label in data.columns.values:
 
 MODEL = "RFTC"
 
+# Logistic Regression model
 if MODEL == "LOGREG":
     X = data.drop(['STATUS'], axis=1).drop(['ID'], axis=1)
     y = data['STATUS']
 
 
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
     scaler = MinMaxScaler(feature_range=(0, 1))
     X_train_rescaled = scaler.fit_transform(X_train)
@@ -50,11 +51,13 @@ if MODEL == "LOGREG":
     print("Best params:", best_params, "with accuracy:", score)
 
     LogReg.set_params(**best_params)
+
+# Decision Tree Classifier model
 elif MODEL == "DTC":
     X = data.drop(['STATUS'], axis=1).drop(['ID'], axis=1)
     y = data['STATUS']
 
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     
     scaler = MinMaxScaler(feature_range=(0, 1))
     
@@ -67,11 +70,12 @@ elif MODEL == "DTC":
     print("Decision Tree Classifier model")
     print("Accuracy:", accuracy_score(y_test, y_pred))
 
+# Random Forest Classifier model
 elif MODEL == "RFTC":
     X = data.drop(['STATUS'], axis=1).drop(['ID'], axis=1)
     y = data['STATUS']
 
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
     # scaler = MinMaxScaler(feature_range=(0, 1))
     # X_train_rescaled = scaler.fit_transform(X_train)
