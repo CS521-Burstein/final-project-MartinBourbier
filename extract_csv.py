@@ -30,17 +30,15 @@ application_record.drop('FLAG_MOBIL', axis=1, inplace=True)
 
 print(application_record.columns)
 
-# Replace X and C characters with -1
-credit_record.replace('X', -1, inplace=True)
-credit_record.replace('C', -1, inplace=True)
+# Replace X and C characters with 0 (paid off or no loan for the month)
+credit_record.replace('X', 0, inplace=True)
+credit_record.replace('C', 0, inplace=True)
 
 # Change data type of STATUS column from string to integer
 credit_record['STATUS'] = credit_record['STATUS'].astype(int)
 
 # Normalize value to be = 1 if STATUS >= 1
 credit_record.loc[credit_record['STATUS'] >= 1, 'STATUS'] = 1
-# change status=-1 to status=0
-credit_record.loc[credit_record['STATUS'] <= -1, 'STATUS'] = 0
 
 # Keep only the highest value when ID's have duplicates
 df = pd.DataFrame(credit_record.groupby(['ID'])['STATUS'].agg(max)).reset_index()
