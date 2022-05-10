@@ -9,6 +9,9 @@ data_folder = "./dataset"
 application_record = pd.read_csv(f"{data_folder}/application_record.csv", index_col="ID")
 credit_record = pd.read_csv(f"{data_folder}/credit_record.csv", index_col="ID")
 
+# Drop useless columns in prediction
+application_record.drop(['FLAG_PHONE', 'FLAG_WORK_PHONE', 'FLAG_EMAIL', 'FLAG_MOBIL'], inplace=True, axis=1)
+
 # DAYS_BIRTH -> AGE
 
 application_record['AGE'] = -application_record['DAYS_BIRTH'] / YEAR
@@ -25,8 +28,6 @@ application_record.drop(columns='CNT_CHILDREN', axis=1, inplace=True)
 # DROP USERS WHO HAVE MORE THAN 10 FAMILY MEMBERS
 
 application_record.drop(application_record[application_record['CNT_FAM_MEMBERS'] > 10].index, inplace=True)
-# drop flag_mobile since it is always true
-application_record.drop('FLAG_MOBIL', axis=1, inplace=True)
 
 print(application_record.columns)
 
