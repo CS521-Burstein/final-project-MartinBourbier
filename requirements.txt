@@ -1,2 +1,8 @@
 kaggle # Downloading the dataset
 pandas # DataFrames
+numpy
+sklearn
+matplotlib
+seaborn
+pickle
+pandas_profiling
