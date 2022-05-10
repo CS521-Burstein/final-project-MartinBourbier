@@ -2,7 +2,7 @@
 
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.linear_model import LogisticRegression
-from sklearn .metrics import accuracy_score
+from sklearn.metrics import accuracy_score
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.preprocessing import LabelEncoder, MinMaxScaler
 from sklearn.ensemble import RandomForestClassifier
@@ -21,7 +21,7 @@ MODEL = "RFTC"
 
 # Logistic Regression model
 if MODEL == "LOGREG":
-    X = data.drop(['STATUS', 'ID', 'Unnamed: 0'], axis=1)
+    X = data.drop(['STATUS', 'ID', 'Unnamed: 0', 'MONTHS_BALANCE'], axis=1)
     y = data['STATUS']
 
 
@@ -55,7 +55,7 @@ if MODEL == "LOGREG":
 
 # Decision Tree Classifier model
 elif MODEL == "DTC":
-    X = data.drop(['STATUS', 'ID', 'Unnamed: 0'], axis=1)
+    X = data.drop(['STATUS', 'ID', 'Unnamed: 0', 'MONTHS_BALANCE'], axis=1)
     y = data['STATUS']
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -73,7 +73,7 @@ elif MODEL == "DTC":
 
 # Random Forest Classifier model
 elif MODEL == "RFTC":
-    X = data.drop(['STATUS', 'ID', 'Unnamed: 0'], axis=1)
+    X = data.drop(['STATUS', 'ID', 'Unnamed: 0', 'MONTHS_BALANCE'], axis=1)
     y = data['STATUS']
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -99,3 +99,5 @@ s = pickle.dumps(model)
 
 with open('model.pkl', 'wb') as f:
     f.write(s)
+
+print(X.columns.values)
