@@ -12,6 +12,9 @@ credit_record = pd.read_csv(f"{data_folder}/credit_record.csv", index_col="ID")
 # Drop useless columns in prediction
 application_record.drop(['FLAG_PHONE', 'FLAG_WORK_PHONE', 'FLAG_EMAIL', 'FLAG_MOBIL'], inplace=True, axis=1)
 
+# Drop duplicates
+application_record.drop_duplicates(inplace=True)
+
 # DAYS_BIRTH -> AGE
 
 application_record['AGE'] = -application_record['DAYS_BIRTH'] / YEAR
@@ -63,7 +66,7 @@ concatenated_df['OCCUPATION_TYPE'] = concatenated_df.OCCUPATION_TYPE.astype('cat
 concatenated_df.CNT_FAM_MEMBERS = concatenated_df.CNT_FAM_MEMBERS.astype(int)
 
 # since data is skewed (most status values = 0), drop 27875 of the status = 0 rows so it's 50/50 0s and 1s
-concatenated_df = concatenated_df.drop(concatenated_df[concatenated_df['STATUS'].eq(0)].sample(27875).index)
+# concatenated_df = concatenated_df.drop(concatenated_df[concatenated_df['STATUS'].eq(0)].sample(27875).index)
 
 
 # Write merge result to the file
