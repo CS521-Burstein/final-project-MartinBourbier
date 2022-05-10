@@ -10,19 +10,20 @@ with open('model.pkl', 'rb') as f:
 print("Welcome! Please enter your information below:")
 
 values = {
-    'CODE_GENDER': [1 if input("Enter your gender (M/W): ") == "M" else 0],
+    'CODE_GENDER': [1 if input("Enter your gender (M/F): ") == "M" else 0],
     'FLAG_OWN_CAR': [1 if input("Do you own a car (Y/N)? ") == "Y" else 0],
     'FLAG_OWN_REALTY': [1 if input("Do you own realty (Y/N)? ") == "Y" else 0],
     'AMT_INCOME_TOTAL': [float(input("Enter your annual income: "))],
     'NAME_INCOME_TYPE': [input("Enter your income type (Working/Commercial associate/Other): ")],
     'NAME_EDUCATION_TYPE': [input("Enter your education type (Secondary/Higher education/Other): ")],
-    'NAME_FAMILY_STATUS': [input("Enter your family status (Single/Married/Other): ")],
-    'NAME_HOUSING_TYPE': [input("Enter your housing type ('House / appartment'/Other): ")],
+    'NAME_FAMILY_STATUS': [input("Enter your family status (Single/Married/Civil Marriage/Separated/Other): ")],
+    'NAME_HOUSING_TYPE': [input("Enter your housing type ('House / apartment'/'Rented apartment'/'Municipal "
+                                "apartment'/'With parents'/Other): ")],
     'FLAG_WORK_PHONE': [1 if input("Do you have a work phone (Y/N)? ") == "Y" else 0],
     'FLAG_PHONE': [1 if input("Do you have a phone (Y/N)? ") == "Y" else 0],
     'FLAG_EMAIL': [1 if input("Do you have an email (Y/N)? ") == "Y" else 0],
     'OCCUPATION_TYPE': [input("Enter your occupation type (Student/Professional/Other): ")],
-    'CNT_FAM_MEMBERS': [int(input("Enter the number of family members: "))],
+    'CNT_FAM_MEMBERS': [int(input("Enter the number of household family members: "))],
     'AGE': [float(input("Enter your age: "))],
     'YEARS_EMPLOYED': [float(input("Enter the number of years employed: "))]
 }
