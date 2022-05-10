@@ -17,7 +17,7 @@ for label in data.columns.values:
         data[label] = le.fit_transform(data[label])
 
 grid = None
-MODEL = "RFTC"
+MODEL = "LOGREG"
 
 # Logistic Regression model
 if MODEL == "LOGREG":
