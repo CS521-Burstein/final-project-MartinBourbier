@@ -66,8 +66,7 @@ concatenated_df['OCCUPATION_TYPE'] = concatenated_df.OCCUPATION_TYPE.astype('cat
 concatenated_df.CNT_FAM_MEMBERS = concatenated_df.CNT_FAM_MEMBERS.astype(int)
 
 # since data is skewed (most status values = 0), drop 27875 of the status = 0 rows so it's 50/50 0s and 1s
-# concatenated_df = concatenated_df.drop(concatenated_df[concatenated_df['STATUS'].eq(0)].sample(27875).index)
-
+concatenated_df = concatenated_df.drop(concatenated_df[concatenated_df['STATUS'].eq(0)].sample(7146).index)
 
 # Write merge result to the file
 concatenated_df.to_csv(f'{data_folder}/concatenated.csv')
