@@ -147,4 +147,4 @@ for label in data.columns.values:
 
 output = model.predict(data)[0]
 
-print("Your credit card was", "approved!" if output == 1 else "denied.")
+print("Your credit card application was", "approved!" if output == 1 else "denied.")
